@@ -17,6 +17,12 @@ jobs:
       - name: Restore
         run: dotnet restore
 
+      - name: Locate .NET project files
+        run: |
+          ls -la
+          find . -maxdepth 5 -name "*.sln" -o -name "*.csproj" -o -name "packages.config"
+
+
       - name: Run Snyk (fail on high+)
         uses: snyk/actions/node@master
         env:
