@@ -17,16 +17,10 @@ jobs:
       - name: Restore
         run: dotnet restore
 
-      - name: Locate .NET project files
-        run: |
-          ls -la
-          find . -maxdepth 5 -name "*.sln" -o -name "*.csproj" -o -name "packages.config"
-
-
       - name: Run Snyk (fail on high+)
         uses: snyk/actions/node@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
           SNYK_DISABLE_ANALYTICS: "1"
         with:
-          args: --severity-threshold=high
+          args: test --severity-threshold=high
