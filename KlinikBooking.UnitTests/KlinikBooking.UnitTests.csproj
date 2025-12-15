@@ -15,4 +15,12 @@
         <PackageReference Include="FluentAssertions" Version="6.12.0"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <UpToDateCheckInput Remove="Features\Calculator.feature" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <UpToDateCheckBuild Remove="Features\Calculator.feature.cs" />
+    </ItemGroup>
+
 </Project>
