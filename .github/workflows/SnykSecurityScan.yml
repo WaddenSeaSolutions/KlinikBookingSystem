@@ -9,13 +9,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Node (if you scan npm projects)
-        uses: actions/setup-node@v4
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
         with:
-          node-version: 20
+          dotnet-version: "9.0.x"
 
-      - name: Install deps
-        run: npm ci
+      - name: Restore
+        run: dotnet restore
 
       - name: Run Snyk (fail on high+)
         uses: snyk/actions/node@master
