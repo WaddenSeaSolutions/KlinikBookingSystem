@@ -14,8 +14,22 @@ jobs:
         with:
           dotnet-version: "9.0.x"
 
+      - name: Detect solution file
+        id: detect
+        shell: bash
+        run: |
+          set -e
+          SLN="$(find . -maxdepth 4 -name '*.sln' | head -n 1)"
+          if [ -z "$SLN" ]; then
+            echo "No .sln found. Printing .csproj files for debugging:"
+            find . -maxdepth 6 -name '*.csproj' || true
+            exit 1
+          fi
+          echo "Found solution: $SLN"
+          echo "sln=$SLN" >> "$GITHUB_OUTPUT"
+
       - name: Restore
-        run: dotnet restore
+        run: dotnet restore "${{ steps.detect.outputs.sln }}"
 
       - name: Run Snyk (fail on high+)
         uses: snyk/actions/node@master
@@ -23,4 +37,4 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
           SNYK_DISABLE_ANALYTICS: "1"
         with:
-          args: test --severity-threshold=high
+          args: --severity-threshold=high --file="${{ steps.detect.outputs.sln }}"
