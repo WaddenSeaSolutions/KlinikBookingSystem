@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using KlinikBooking.Core;
+using KlinikBooking.Core.Entitites;
+using KlinikBooking.Core.Interfaces;
 using Moq;
 using Xunit;
 
