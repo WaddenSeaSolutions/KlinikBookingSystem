@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DefaultNamespace;
+using Microsoft.AspNetCore.Mvc;
 using KlinikBooking.Core;
 using KlinikBooking.Core.Interfaces;
 
