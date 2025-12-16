@@ -2,6 +2,14 @@ name: Snyk security scan
 
 on:
   push:
+  pull_request:
+  schedule:
+    - cron: "0 6 * * *"
+
+permissions:
+  contents: read
+  security-events: write
+  issues: write  
 
 jobs:
   snyk:
@@ -37,4 +45,59 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
           SNYK_DISABLE_ANALYTICS: "1"
         with:
-          args: --severity-threshold=high --file="${{ steps.detect.outputs.sln }}"
+          args: >
+            --severity-threshold=high
+            --file="${{ steps.detect.outputs.sln }}"
+            --sarif-file-output=snyk.sarif
+
+      - name: Upload SARIF to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: snyk.sarif
+
+
+      - name: Create CRA issue if High/Critical found
+        if: steps.snyk.outcome == 'failure' && github.ref == 'refs/heads/main'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const now = new Date();
+            const iso = (d) => d.toISOString();
+            const early = new Date(now.getTime() + 24*60*60*1000);
+            const full  = new Date(now.getTime() + 72*60*60*1000);
+
+            const title = `CRA: Snyk High+ findings (${context.sha.slice(0,7)})`;
+
+            const body = [
+              "## Awareness",
+              `- Awareness time (UTC): ${iso(now)}`,
+              "- Source: Snyk (CI pipeline)",
+              "- Actively exploited? (yes/no/unknown): unknown",
+              "",
+              "## Product info",
+              `- Repo: ${context.repo.owner}/${context.repo.repo}`,
+              `- Commit: ${context.sha}`,
+              `- Workflow run: ${context.runId}`,
+              "",
+              "## Vulnerability",
+              "- Summary: High/Critical vulnerabilities detected by Snyk (see Code Scanning alerts + Snyk output)",
+              "",
+              "## Mitigation / Fix plan",
+              "- Owner:",
+              "- ETA fix:",
+              "- Workaround:",
+              "",
+              "## CRA reporting deadlines",
+              `- Early warning (24h): ${iso(early)}`,
+              `- Full notification (72h): ${iso(full)}`,
+              "- Final report: 14 days after corrective measure is available (actively exploited vuln) / within a month for severe incidents",
+            ].join("\n");
+
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title,
+              body,
+              labels: ["security", "snyk", "cra-reporting"]
+            });
+      
