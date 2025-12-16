@@ -40,6 +40,8 @@ jobs:
         run: dotnet restore "${{ steps.detect.outputs.sln }}"
 
       - name: Run Snyk (fail on high+)
+        id: snyk
+        continue-on-error: true
         uses: snyk/actions/node@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
@@ -100,4 +102,7 @@ jobs:
               body,
               labels: ["security", "snyk", "cra-reporting"]
             });
-      
+
+      - name: Fail job if vulnerabilities found
+        if: steps.snyk.outcome == 'failure'
+        run: exit 1
