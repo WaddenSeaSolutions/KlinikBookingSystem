@@ -1,6 +1,7 @@
 namespace KlinikBooking.Infrastructure.Repositories;
 
-public class IDbinitializer
+public interface IDbinitializer
 {
-    
+    void Initialize(KlinikBookingContext context);
+
 }
