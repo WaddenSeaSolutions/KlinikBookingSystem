@@ -1,4 +1,4 @@
-﻿namespace DefaultNamespace;
+﻿namespace KlinikBooking.Core.Entitites;
 
 public class Booking
 {

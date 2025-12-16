@@ -1,4 +1,4 @@
-namespace KlinikBooking.Infrastructure.Repositories;
+namespace KlinikBooking.Infrastructure;
 
 public interface IDbinitializer
 {

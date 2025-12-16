@@ -11,6 +11,21 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="9.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.2" />
     <PackageReference Include="Moq" Version="4.20.72" />
+  </ItemGroup>	
+	  <ItemGroup>
+    <Reference Include="Microsoft.EntityFrameworkCore">
+      <HintPath>..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.entityframeworkcore\2.0.0\lib\netstandard2.0\Microsoft.EntityFrameworkCore.dll</HintPath>
+    </Reference>
   </ItemGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\KlinikBooking.Core\KlinikBooking.Core.csproj" />
+  </ItemGroup>
+
+
+	<ItemGroup>
+	  <Folder Include="Repositories\" />
+	</ItemGroup>
 
 </Project>

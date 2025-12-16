@@ -1,6 +1,7 @@
+using KlinikBooking.Core.Entitites;
 using Microsoft.EntityFrameworkCore;
 
-namespace KlinikBooking.Infrastructure.Repositories;
+namespace KlinikBooking.Infrastructure;
 
 public class KlinikBookingContext : DbContext
 {
