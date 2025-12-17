@@ -1,9 +1,11 @@
 ﻿
 using Castle.Core.Resource;
+using HotelBooking.Infrastructure.Repositories;
 using KlinikBooking.Core;
 using KlinikBooking.Core.Entitites;
 using KlinikBooking.Core.Interfaces;
 using KlinikBooking.Infrastructure;
+using KlinikBooking.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,8 +18,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<k>(opt => 
-    opt.UseInMemoryDatabase("HotelBookingDb"));
+builder.Services.AddDbContext<KlinikBookingContext>(opt => 
+    opt.UseInMemoryDatabase("KlinikBookingDB"));
 
 builder.Services.AddScoped<IRepository<TreatmentRoom>, TreatmentRoomRepository>();
 builder.Services.AddScoped<IRepository<Patient>, PatientRepository>();

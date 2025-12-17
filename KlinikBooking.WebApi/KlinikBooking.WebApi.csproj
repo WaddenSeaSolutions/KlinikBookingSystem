@@ -6,6 +6,7 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.3.0" />
+        <PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.1" />
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.2" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="9.0.2" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.2" />
@@ -24,6 +25,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\KlinikBooking.Core\KlinikBooking.Core.csproj" />
+      <ProjectReference Include="..\KlinikBooking.Infrastructure\KlinikBooking.Infrastructure.csproj" />
     </ItemGroup>
 
 	<ItemGroup>
