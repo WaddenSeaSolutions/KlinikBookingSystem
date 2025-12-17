@@ -11,25 +11,25 @@ namespace KlinikBooking.WebApi.Controllers
     [Route("[controller]")]
     public class TreatmentRoomsController : ControllerBase
     {
-        private readonly IRepository<TreatmentRoom> treatmentRoomRepository;
+        private readonly IRepository<TreatmentRoom> _treatmentRoomRepository;
 
         public TreatmentRoomsController(IRepository<TreatmentRoom> repository)
         {
-            treatmentRoomRepository = repository;
+            _treatmentRoomRepository = repository;
         }
 
         // GET: treatmentrooms
         [HttpGet(Name = "GetTreatmentRooms")]
         public async Task<IEnumerable<TreatmentRoom>> Get()
         {
-            return await treatmentRoomRepository.GetAllAsync();
+            return await _treatmentRoomRepository.GetAllAsync();
         }
 
         // GET treatmentrooms/5
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var item = await treatmentRoomRepository.GetAsync(id);
+            var item = await _treatmentRoomRepository.GetAsync(id);
             if (item == null)
             {
                 return NotFound();
@@ -47,7 +47,7 @@ namespace KlinikBooking.WebApi.Controllers
                 return BadRequest();
             }
 
-            await treatmentRoomRepository.AddAsync(treatmentRoom);
+            await _treatmentRoomRepository.AddAsync(treatmentRoom);
             return CreatedAtRoute("GetTreatmentRooms", null);
         }
 
@@ -57,7 +57,7 @@ namespace KlinikBooking.WebApi.Controllers
         {
             if (id > 0)
             {
-                await treatmentRoomRepository.RemoveAsync(id);
+                await _treatmentRoomRepository.RemoveAsync(id);
                 return NoContent();
             }
 
