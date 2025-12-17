@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using KlinikBooking.Core;
+using KlinikBooking.Core.Entitites;
+using KlinikBooking.Core.Interfaces;
 
 
 public class FakePatientRepository : IRepository<Patient>

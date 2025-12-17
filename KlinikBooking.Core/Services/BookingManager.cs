@@ -1,5 +1,4 @@
-
-using DefaultNamespace;
+using KlinikBooking.Core.Entitites;
 using KlinikBooking.Core.Interfaces;
 
 namespace KlinikBooking.Core

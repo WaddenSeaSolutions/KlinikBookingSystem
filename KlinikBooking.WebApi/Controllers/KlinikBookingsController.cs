@@ -1,8 +1,8 @@
-using DefaultNamespace;
 using KlinikBooking.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using KlinikBooking.Core.Entitites;
 
 namespace KlinikBooking.WebApi
 {
