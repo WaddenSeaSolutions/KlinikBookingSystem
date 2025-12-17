@@ -27,6 +27,8 @@ builder.Services.AddTransient<IDbinitializer, Dbinitializer>();
 
 var app = builder.Build();
 
+
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -37,7 +39,7 @@ if (app.Environment.IsDevelopment())
     using (var scope = app.Services.CreateScope())
     {
         var services = scope.ServiceProvider;
-        var dbContext = services.GetService<HotelBookingContext>();
+        var dbContext = services.GetService<KlinikBookingContext>();
         var dbInitializer = services.GetService<IDbinitializer>();
         dbInitializer.Initialize(dbContext);
     }
