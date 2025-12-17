@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using KlinikBooking.Core.Entitites;
 
-namespace KlinikBooking.WebApi
+namespace KlinikBooking.WebApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]

@@ -5,11 +5,11 @@ using KlinikBooking.Core.Entitites;
 using KlinikBooking.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-namespace KlinikBooking.WebApi
+namespace KlinikBooking.WebApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class TreatmentRoomsController : Controller
+    public class TreatmentRoomsController : ControllerBase
     {
         private readonly IRepository<TreatmentRoom> treatmentRoomRepository;
 
