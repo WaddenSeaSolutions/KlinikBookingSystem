@@ -40,13 +40,12 @@ namespace KlinikBooking.WebApi.Controllers
 
             if (created)
             {
-                return CreatedAtRoute("GetBookings", null);
+                return Created(string.Empty, booking);
             }
             else
             {
                 return Conflict("The booking could not be created. All rooms are occupied. Please try another period.");
             }
-
         }
 
         [HttpDelete("{id}")]
