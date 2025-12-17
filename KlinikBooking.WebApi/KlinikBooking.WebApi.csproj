@@ -24,6 +24,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\KlinikBooking.Core\KlinikBooking.Core.csproj" />
+      <ProjectReference Include="..\KlinikBooking.Infrastructure\KlinikBooking.Infrastructure.csproj" />
     </ItemGroup>
 
 	<ItemGroup>

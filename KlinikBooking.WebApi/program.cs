@@ -1,9 +1,11 @@
 ﻿
 using Castle.Core.Resource;
+using HotelBooking.Infrastructure.Repositories;
 using KlinikBooking.Core;
 using KlinikBooking.Core.Entitites;
 using KlinikBooking.Core.Interfaces;
 using KlinikBooking.Infrastructure;
+using KlinikBooking.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
