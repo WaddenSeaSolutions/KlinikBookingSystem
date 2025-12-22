@@ -32,13 +32,13 @@ namespace KlinikBooking.Core
             }
         }
 
-        public async Task<int> FindAvailableTreatmentRoom(DateTime ApointmentStart, DateTime ApointmentEnd)
+        public async Task<int> FindAvailableTreatmentRoom(DateTime appointmentStart, DateTime appointmentEnd)
         {
-            if (ApointmentStart < DateTime.Now || ApointmentStart >= ApointmentEnd)
+            if (appointmentStart < DateTime.Now || appointmentStart >= appointmentEnd)
                 throw new ArgumentException("Bookings must be in the future and have a valid start time and end time");
 
 
-            TimeSpan duration = ApointmentEnd - ApointmentStart;
+            TimeSpan duration = appointmentEnd - appointmentStart;
             if (duration.TotalHours > 1)
             {
                 throw new ArgumentException("A booking can be max 1 hour");
@@ -53,8 +53,8 @@ namespace KlinikBooking.Core
 
                 bool isOccupied = activeBookings.Any(b =>
                     b.TreatmentRoomId == room.Id &&
-                    ApointmentStart < b.appointmenEnd &&
-                    ApointmentEnd > b.appointmentStart);
+                    appointmentStart < b.appointmenEnd &&
+                    appointmentEnd > b.appointmentStart);
 
                 if (!isOccupied)
                 {
@@ -65,9 +65,9 @@ namespace KlinikBooking.Core
             return -1;
         }
 
-        public async Task<List<DateTime>> GetFullyOccupiedTimeSlots(DateTime ApointmentStart, DateTime ApointmentEnd)
+        public async Task<List<DateTime>> GetFullyOccupiedTimeSlots(DateTime appointmentStart, DateTime appointmentEnd)
         {
-            if (ApointmentStart > ApointmentEnd)
+            if (appointmentStart > appointmentEnd)
                 throw new ArgumentException("The start date cannot be later than the end date.");
 
             List<DateTime> fullyOccupiedSlots = new List<DateTime>();
@@ -76,7 +76,7 @@ namespace KlinikBooking.Core
             int noOfTreatmentRooms = rooms.Count();
             var bookings = (await bookingRepository.GetAllAsync()).Where(b => b.IsActive).ToList();
 
-            for (DateTime slot = ApointmentStart; slot < ApointmentEnd; slot = slot.AddHours(1))
+            for (DateTime slot = appointmentStart; slot < appointmentEnd; slot = slot.AddHours(1))
             {
                 var slotEnd = slot.AddHours(1);
 
