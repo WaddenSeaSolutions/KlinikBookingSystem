@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using KlinikBooking.Core.Entitites;
+using System;
 
 namespace KlinikBooking.WebApi.Controllers
 {
@@ -18,6 +19,21 @@ namespace KlinikBooking.WebApi.Controllers
         {
             this.bookingRepository = bookingRepository;
             this.bookingManager = bookingManager;
+        }
+
+        [HttpGet]
+        [Route("GetFullyOccupiedSlots")]
+        public async Task<ActionResult<List<DateTime>>> GetFullyOccupiedSlots([FromQuery] DateTime startDate, [FromQuery] DateTime endDate)
+        {
+            try
+            {
+                var occupiedSlots = await bookingManager.GetFullyOccupiedTimeSlots(startDate, endDate);
+                return Ok(occupiedSlots);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet]

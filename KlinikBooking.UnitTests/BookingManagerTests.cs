@@ -308,7 +308,7 @@ public class BookingManagerTests
 
         // Act & Assert
         await Assert.ThrowsAsync<ArgumentException>(() =>
-            _bookingManager.GetFullyOccupiedDates(startDate, endDate));
+            _bookingManager.GetFullyOccupiedTimeSlots(startDate, endDate));
     }
 
     [Fact]
@@ -323,7 +323,7 @@ public class BookingManagerTests
 
         // Act
         var result =
-            await _bookingManager.GetFullyOccupiedDates(startDate, endDate);
+            await _bookingManager.GetFullyOccupiedTimeSlots(startDate, endDate);
 
         // Assert
         Assert.Empty(result);
@@ -345,7 +345,7 @@ public class BookingManagerTests
 
         // Act
         var result =
-            await _bookingManager.GetFullyOccupiedDates(startDate, endDate);
+            await _bookingManager.GetFullyOccupiedTimeSlots(startDate, endDate);
 
         // Assert
         Assert.Empty(result);
