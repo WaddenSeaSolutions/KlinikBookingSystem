@@ -35,7 +35,7 @@ namespace KlinikBooking.Core
         public async Task<int> FindAvailableTreatmentRoom(DateTime startDate, DateTime endDate)
         {
             if (startDate < DateTime.Now || startDate >= endDate)
-                throw new ArgumentException("Bookings must be in ");
+                throw new ArgumentException("Bookings must be in the future and have a valid start time and end time");
 
 
             TimeSpan duration = endDate - startDate;
