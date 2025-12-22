@@ -17,7 +17,7 @@ namespace KlinikBooking.Core
 
         public async Task<bool> CreateBooking(Booking booking)
         {
-            int roomId = await FindAvailableTreatmentRoom(booking.StartDate, booking.EndDate);
+            int roomId = await FindAvailableTreatmentRoom(booking.appointmentStart, booking.appointmenEnd);
 
             if (roomId >= 0)
             {
@@ -32,13 +32,13 @@ namespace KlinikBooking.Core
             }
         }
 
-        public async Task<int> FindAvailableTreatmentRoom(DateTime startDate, DateTime endDate)
+        public async Task<int> FindAvailableTreatmentRoom(DateTime ApointmentStart, DateTime ApointmentEnd)
         {
-            if (startDate < DateTime.Now || startDate >= endDate)
+            if (ApointmentStart < DateTime.Now || ApointmentStart >= ApointmentEnd)
                 throw new ArgumentException("Bookings must be in the future and have a valid start time and end time");
 
 
-            TimeSpan duration = endDate - startDate;
+            TimeSpan duration = ApointmentEnd - ApointmentStart;
             if (duration.TotalHours > 1)
             {
                 throw new ArgumentException("A booking can be max 1 hour");
@@ -53,8 +53,8 @@ namespace KlinikBooking.Core
 
                 bool isOccupied = activeBookings.Any(b =>
                     b.TreatmentRoomId == room.Id &&
-                    startDate < b.EndDate &&
-                    endDate > b.StartDate);
+                    ApointmentStart < b.appointmenEnd &&
+                    ApointmentEnd > b.appointmentStart);
 
                 if (!isOccupied)
                 {
@@ -65,9 +65,9 @@ namespace KlinikBooking.Core
             return -1;
         }
 
-        public async Task<List<DateTime>> GetFullyOccupiedTimeSlots(DateTime startDate, DateTime endDate)
+        public async Task<List<DateTime>> GetFullyOccupiedTimeSlots(DateTime ApointmentStart, DateTime ApointmentEnd)
         {
-            if (startDate > endDate)
+            if (ApointmentStart > ApointmentEnd)
                 throw new ArgumentException("The start date cannot be later than the end date.");
 
             List<DateTime> fullyOccupiedSlots = new List<DateTime>();
@@ -76,12 +76,12 @@ namespace KlinikBooking.Core
             int noOfTreatmentRooms = rooms.Count();
             var bookings = (await bookingRepository.GetAllAsync()).Where(b => b.IsActive).ToList();
 
-            for (DateTime slot = startDate; slot < endDate; slot = slot.AddHours(1))
+            for (DateTime slot = ApointmentStart; slot < ApointmentEnd; slot = slot.AddHours(1))
             {
                 var slotEnd = slot.AddHours(1);
 
                 var activeBookingsInSlot = bookings.Count(b =>
-                    b.StartDate < slotEnd && b.EndDate > slot);
+                    b.appointmentStart < slotEnd && b.appointmenEnd > slot);
 
                 if (activeBookingsInSlot >= noOfTreatmentRooms)
                 {

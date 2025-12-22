@@ -23,11 +23,11 @@ namespace KlinikBooking.WebApi.Controllers
 
         [HttpGet]
         [Route("GetFullyOccupiedSlots")]
-        public async Task<ActionResult<List<DateTime>>> GetFullyOccupiedSlots([FromQuery] DateTime startDate, [FromQuery] DateTime endDate)
+        public async Task<ActionResult<List<DateTime>>> GetFullyOccupiedSlots([FromQuery] DateTime appointmentStart, [FromQuery] DateTime apointmentEnd)
         {
             try
             {
-                var occupiedSlots = await bookingManager.GetFullyOccupiedTimeSlots(startDate, endDate);
+                var occupiedSlots = await bookingManager.GetFullyOccupiedTimeSlots(appointmentStart, apointmentEnd);
                 return Ok(occupiedSlots);
             }
             catch (ArgumentException ex)
