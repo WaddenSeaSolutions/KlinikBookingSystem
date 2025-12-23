@@ -65,9 +65,9 @@ namespace KlinikBooking.Core
             return -1;
         }
 
-        public async Task<List<DateTime>> GetFullyOccupiedTimeSlots(DateTime ApointmentStart, DateTime ApointmentEnd)
+        public async Task<List<DateTime>> GetFullyOccupiedTimeSlots(DateTime apointmentStart, DateTime apointmentEnd)
         {
-            if (ApointmentStart > ApointmentEnd)
+            if (apointmentStart > apointmentEnd)
                 throw new ArgumentException("The start date cannot be later than the end date.");
 
             List<DateTime> fullyOccupiedSlots = new List<DateTime>();
@@ -76,7 +76,7 @@ namespace KlinikBooking.Core
             int noOfTreatmentRooms = rooms.Count();
             var bookings = (await bookingRepository.GetAllAsync()).Where(b => b.IsActive).ToList();
 
-            for (DateTime slot = ApointmentStart; slot < ApointmentEnd; slot = slot.AddHours(1))
+            for (DateTime slot = apointmentStart; slot < apointmentEnd; slot = slot.AddHours(1))
             {
                 var slotEnd = slot.AddHours(1);
 
