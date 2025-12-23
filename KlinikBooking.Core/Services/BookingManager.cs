@@ -34,14 +34,14 @@ namespace KlinikBooking.Core
 
         public async Task<int> FindAvailableTreatmentRoom(DateTime appointmentStart, DateTime appointmentEnd)
         {
-            if (appointmentStart < DateTime.Now || appointmentStart >= appointmentEnd)
-                throw new ArgumentException("Bookings must be in the future and have a valid start time and end time");
+            if (appointmentStart >= appointmentEnd)
+                throw new ArgumentException("Appointments must have valid start time and end time");
 
 
             TimeSpan duration = appointmentEnd - appointmentStart;
             if (duration.TotalHours > 1)
             {
-                throw new ArgumentException("A booking can be max 1 hour");
+                throw new ArgumentException("Appointments can be max 1 hour");
             }
 
             var rooms = await treatmentRoomRepository.GetAllAsync();
@@ -65,9 +65,9 @@ namespace KlinikBooking.Core
             return -1;
         }
 
-        public async Task<List<DateTime>> GetFullyOccupiedTimeSlots(DateTime appointmentStart, DateTime appointmentEnd)
+        public async Task<List<DateTime>> GetFullyOccupiedTimeSlots(DateTime ApointmentStart, DateTime ApointmentEnd)
         {
-            if (appointmentStart > appointmentEnd)
+            if (ApointmentStart > ApointmentEnd)
                 throw new ArgumentException("The start date cannot be later than the end date.");
 
             List<DateTime> fullyOccupiedSlots = new List<DateTime>();
@@ -76,7 +76,7 @@ namespace KlinikBooking.Core
             int noOfTreatmentRooms = rooms.Count();
             var bookings = (await bookingRepository.GetAllAsync()).Where(b => b.IsActive).ToList();
 
-            for (DateTime slot = appointmentStart; slot < appointmentEnd; slot = slot.AddHours(1))
+            for (DateTime slot = ApointmentStart; slot < ApointmentEnd; slot = slot.AddHours(1))
             {
                 var slotEnd = slot.AddHours(1);
 
