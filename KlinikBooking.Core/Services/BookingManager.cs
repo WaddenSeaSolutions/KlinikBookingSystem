@@ -17,7 +17,7 @@ namespace KlinikBooking.Core
 
         public async Task<bool> CreateBooking(Booking booking)
         {
-            int roomId = await FindAvailableTreatmentRoom(booking.StartDate, booking.EndDate);
+            int roomId = await FindAvailableTreatmentRoom(booking.appointmentStart, booking.appointmenEnd);
 
             if (roomId >= 0)
             {
@@ -32,48 +32,64 @@ namespace KlinikBooking.Core
             }
         }
 
-        public async Task<int> FindAvailableTreatmentRoom(DateTime startDate, DateTime endDate)
+        public async Task<int> FindAvailableTreatmentRoom(DateTime appointmentStart, DateTime appointmentEnd)
         {
-            if (startDate <= DateTime.Today || startDate > endDate)
-                throw new ArgumentException("The start date cannot be in the past or later than the end date.");
+            if (appointmentStart >= appointmentEnd)
+                throw new ArgumentException("Appointments must have valid start time and end time");
 
-            var bookings = await bookingRepository.GetAllAsync();
-            var activeBookings = bookings.Where(b => b.IsActive);
+
+            TimeSpan duration = appointmentEnd - appointmentStart;
+            if (duration.TotalHours > 1)
+            {
+                throw new ArgumentException("Appointments can be max 1 hour");
+            }
+
             var rooms = await treatmentRoomRepository.GetAllAsync();
+            var bookings = await bookingRepository.GetAllAsync();
+            var activeBookings = bookings.Where(b => b.IsActive).ToList();
+
             foreach (var room in rooms)
             {
-                var activeBookingsForCurrentRoom = activeBookings.Where(b => b.TreatmentRoomId == room.Id);
-                if (activeBookingsForCurrentRoom.All(b => startDate < b.StartDate &&
-                    endDate < b.StartDate || startDate > b.EndDate && endDate > b.EndDate))
+
+                bool isOccupied = activeBookings.Any(b =>
+                    b.TreatmentRoomId == room.Id &&
+                    appointmentStart < b.appointmenEnd &&
+                    appointmentEnd > b.appointmentStart);
+
+                if (!isOccupied)
                 {
                     return room.Id;
                 }
             }
+
             return -1;
         }
 
-        public async Task<List<DateTime>> GetFullyOccupiedDates(DateTime startDate, DateTime endDate)
+        public async Task<List<DateTime>> GetFullyOccupiedTimeSlots(DateTime apointmentStart, DateTime apointmentEnd)
         {
-            if (startDate > endDate)
+            if (apointmentStart > apointmentEnd)
                 throw new ArgumentException("The start date cannot be later than the end date.");
 
-            List<DateTime> fullyOccupiedDates = new List<DateTime>();
-            var rooms = await treatmentRoomRepository.GetAllAsync();
-            int noOfRooms = rooms.Count();
-            var bookings = await bookingRepository.GetAllAsync();
+            List<DateTime> fullyOccupiedSlots = new List<DateTime>();
 
-            if (bookings.Any())
+            var rooms = await treatmentRoomRepository.GetAllAsync();
+            int noOfTreatmentRooms = rooms.Count();
+            var bookings = (await bookingRepository.GetAllAsync()).Where(b => b.IsActive).ToList();
+
+            for (DateTime slot = apointmentStart; slot < apointmentEnd; slot = slot.AddHours(1))
             {
-                for (DateTime d = startDate; d <= endDate; d = d.AddDays(1))
+                var slotEnd = slot.AddHours(1);
+
+                var activeBookingsInSlot = bookings.Count(b =>
+                    b.appointmentStart < slotEnd && b.appointmenEnd > slot);
+
+                if (activeBookingsInSlot >= noOfTreatmentRooms)
                 {
-                    var noOfBookings = from b in bookings
-                                       where b.IsActive && d >= b.StartDate && d <= b.EndDate
-                                       select b;
-                    if (noOfBookings.Count() >= noOfRooms)
-                        fullyOccupiedDates.Add(d);
+                    fullyOccupiedSlots.Add(slot);
                 }
             }
-            return fullyOccupiedDates;
+
+            return fullyOccupiedSlots;
         }
 
     }

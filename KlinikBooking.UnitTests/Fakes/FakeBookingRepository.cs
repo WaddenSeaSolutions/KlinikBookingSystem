@@ -40,8 +40,8 @@ public class FakeBookingRepository : IRepository<Booking>
         Task<Booking> bookingTask = Task.Factory.StartNew(() => new Booking
         {
             Id = 1,
-            StartDate = fullyOccupiedStartDate,
-            EndDate = fullyOccupiedEndDate,
+            appointmentStart = fullyOccupiedStartDate,
+            appointmenEnd = fullyOccupiedEndDate,
             IsActive = true,
             PatientId = 1,
             TreatmentRoomId = 1
@@ -57,8 +57,8 @@ public class FakeBookingRepository : IRepository<Booking>
             new Booking
             {
                 Id = 1,
-                StartDate = DateTime.Today.AddDays(1),
-                EndDate = DateTime.Today.AddDays(1),
+                appointmentStart = DateTime.Today.AddDays(1),
+                appointmenEnd = DateTime.Today.AddDays(1),
                 IsActive = true,
                 PatientId = 1,
                 TreatmentRoomId = 1
@@ -66,8 +66,8 @@ public class FakeBookingRepository : IRepository<Booking>
             new Booking
             {
                 Id = 1,
-                StartDate = fullyOccupiedStartDate,
-                EndDate = fullyOccupiedEndDate,
+                appointmentStart = fullyOccupiedStartDate,
+                appointmenEnd = fullyOccupiedEndDate,
                 IsActive = true,
                 PatientId = 1,
                 TreatmentRoomId = 1
@@ -75,8 +75,8 @@ public class FakeBookingRepository : IRepository<Booking>
             new Booking
             {
                 Id = 2,
-                StartDate = fullyOccupiedStartDate,
-                EndDate = fullyOccupiedEndDate,
+                appointmentStart = fullyOccupiedStartDate,
+                appointmenEnd = fullyOccupiedEndDate,
                 IsActive = true,
                 PatientId = 2,
                 TreatmentRoomId = 2

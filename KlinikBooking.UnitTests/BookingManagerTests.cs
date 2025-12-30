@@ -85,8 +85,8 @@ public class BookingManagerTests
             {
                 Id = 1,
                 TreatmentRoomId = 1,
-                StartDate = date,
-                EndDate = date,
+                appointmentStart = date,
+                appointmenEnd = date,
                 IsActive = true
             }
         };
@@ -117,8 +117,8 @@ public class BookingManagerTests
         // Arrange
         var booking = new Booking
         {
-            StartDate = DateTime.Today.AddDays(startDaysFromToday),
-            EndDate = DateTime.Today.AddDays(endDaysFromToday)
+            appointmentStart = DateTime.Today.AddDays(startDaysFromToday),
+            appointmenEnd = DateTime.Today.AddDays(endDaysFromToday)
         };
 
         var availableTreatmentRooms = new List<TreatmentRoom>
@@ -162,8 +162,8 @@ public class BookingManagerTests
         // Arrange
         var booking = new Booking
         {
-            StartDate = DateTime.Today.AddDays(startDaysFromToday),
-            EndDate = DateTime.Today.AddDays(endDaysFromToday)
+            appointmentStart = DateTime.Today.AddDays(startDaysFromToday),
+            appointmenEnd = DateTime.Today.AddDays(endDaysFromToday)
         };
 
         var treatmentRooms = new List<TreatmentRoom>
@@ -177,8 +177,8 @@ public class BookingManagerTests
             {
                 Id = 1,
                 TreatmentRoomId = 1,
-                StartDate = DateTime.Today.AddDays(10),
-                EndDate = DateTime.Today.AddDays(20),
+                appointmentStart = DateTime.Today.AddDays(10),
+                appointmenEnd = DateTime.Today.AddDays(20),
                 IsActive = true
             }
         };
@@ -206,8 +206,8 @@ public class BookingManagerTests
         // Arrange
         var booking = new Booking
         {
-            StartDate = DateTime.Today.AddDays(15),
-            EndDate = DateTime.Today.AddDays(16),
+            appointmentStart = DateTime.Today.AddDays(15),
+            appointmenEnd = DateTime.Today.AddDays(16),
             TreatmentRoomId = 999,
             IsActive = true
         };
@@ -222,8 +222,8 @@ public class BookingManagerTests
             new Booking
             {
                 TreatmentRoomId = 1,
-                StartDate = DateTime.Today.AddDays(10),
-                EndDate = DateTime.Today.AddDays(20),
+                appointmentStart = DateTime.Today.AddDays(10),
+                appointmenEnd = DateTime.Today.AddDays(20),
                 IsActive = true
             }
         };
@@ -261,8 +261,8 @@ public class BookingManagerTests
         // Arrange
         var booking = new Booking
         {
-            StartDate = DateTime.Today.AddDays(startDaysFromToday),
-            EndDate = DateTime.Today.AddDays(endDaysFromToday)
+            appointmentStart = DateTime.Today.AddDays(startDaysFromToday),
+            appointmenEnd = DateTime.Today.AddDays(endDaysFromToday)
         };
 
         var treatmentRooms = new List<TreatmentRoom>
@@ -277,8 +277,8 @@ public class BookingManagerTests
                 new Booking
                 {
                     TreatmentRoomId = 1,
-                    StartDate = DateTime.Today.AddDays(10),
-                    EndDate = DateTime.Today.AddDays(20),
+                    appointmentStart = DateTime.Today.AddDays(10),
+                    appointmenEnd = DateTime.Today.AddDays(20),
                     IsActive = true
                 }
             };
@@ -308,7 +308,7 @@ public class BookingManagerTests
 
         // Act & Assert
         await Assert.ThrowsAsync<ArgumentException>(() =>
-            _bookingManager.GetFullyOccupiedDates(startDate, endDate));
+            _bookingManager.GetFullyOccupiedTimeSlots(startDate, endDate));
     }
 
     [Fact]
@@ -323,7 +323,7 @@ public class BookingManagerTests
 
         // Act
         var result =
-            await _bookingManager.GetFullyOccupiedDates(startDate, endDate);
+            await _bookingManager.GetFullyOccupiedTimeSlots(startDate, endDate);
 
         // Assert
         Assert.Empty(result);
@@ -345,7 +345,7 @@ public class BookingManagerTests
 
         // Act
         var result =
-            await _bookingManager.GetFullyOccupiedDates(startDate, endDate);
+            await _bookingManager.GetFullyOccupiedTimeSlots(startDate, endDate);
 
         // Assert
         Assert.Empty(result);
