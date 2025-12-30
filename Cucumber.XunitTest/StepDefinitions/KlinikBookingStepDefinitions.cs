@@ -22,6 +22,12 @@ public sealed class KlinikBookingStepDefinitions
 
         _doctorAvailable = true;
     }
+    
+    [Given(@"the clinic has an available time slot next week")]
+    public void GivenTheClinicHasAnAvailableTimeSlotNextWeek()
+    {
+        // Just a placeholder to indicate the clinic has an available time slot
+    }
 
     [Given(@"no doctors are available next month")]
     public void GivenNoDoctorsAreAvailableNextMonth()
@@ -43,7 +49,12 @@ public sealed class KlinikBookingStepDefinitions
         // This step represents the intent to create an appointment
         // Actual logic is triggered when the form is submitted
     }
-
+    
+    [When(@"I select the available doctor")]
+    public void WhenISelectTheAvailableDoctor()
+    {
+        // Just a placeholder to indicate the doctor selection step
+    }
 
     [When(@"I enter the appointment date and time for next week")]
     public void WhenIEnterTheAppointmentDateAndTimeForNextWeek()
