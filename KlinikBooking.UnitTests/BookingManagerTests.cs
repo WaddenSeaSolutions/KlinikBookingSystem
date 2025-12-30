@@ -86,7 +86,7 @@ public class BookingManagerTests
                 Id = 1,
                 TreatmentRoomId = 1,
                 appointmentStart = date,
-                appointmenEnd = date,
+                appointmentEnd = date,
                 IsActive = true
             }
         };
@@ -118,7 +118,7 @@ public class BookingManagerTests
         var booking = new Booking
         {
             appointmentStart = DateTime.Today.AddDays(startDaysFromToday),
-            appointmenEnd = DateTime.Today.AddDays(endDaysFromToday)
+            appointmentEnd = DateTime.Today.AddDays(endDaysFromToday)
         };
 
         var availableTreatmentRooms = new List<TreatmentRoom>
@@ -163,7 +163,7 @@ public class BookingManagerTests
         var booking = new Booking
         {
             appointmentStart = DateTime.Today.AddDays(startDaysFromToday),
-            appointmenEnd = DateTime.Today.AddDays(endDaysFromToday)
+            appointmentEnd = DateTime.Today.AddDays(endDaysFromToday)
         };
 
         var treatmentRooms = new List<TreatmentRoom>
@@ -178,7 +178,7 @@ public class BookingManagerTests
                 Id = 1,
                 TreatmentRoomId = 1,
                 appointmentStart = DateTime.Today.AddDays(10),
-                appointmenEnd = DateTime.Today.AddDays(20),
+                appointmentEnd = DateTime.Today.AddDays(20),
                 IsActive = true
             }
         };
@@ -207,7 +207,7 @@ public class BookingManagerTests
         var booking = new Booking
         {
             appointmentStart = DateTime.Today.AddDays(15),
-            appointmenEnd = DateTime.Today.AddDays(16),
+            appointmentEnd = DateTime.Today.AddDays(16),
             TreatmentRoomId = 999,
             IsActive = true
         };
@@ -223,7 +223,7 @@ public class BookingManagerTests
             {
                 TreatmentRoomId = 1,
                 appointmentStart = DateTime.Today.AddDays(10),
-                appointmenEnd = DateTime.Today.AddDays(20),
+                appointmentEnd = DateTime.Today.AddDays(20),
                 IsActive = true
             }
         };
@@ -262,7 +262,7 @@ public class BookingManagerTests
         var booking = new Booking
         {
             appointmentStart = DateTime.Today.AddDays(startDaysFromToday),
-            appointmenEnd = DateTime.Today.AddDays(endDaysFromToday)
+            appointmentEnd = DateTime.Today.AddDays(endDaysFromToday)
         };
 
         var treatmentRooms = new List<TreatmentRoom>
@@ -278,7 +278,7 @@ public class BookingManagerTests
                 {
                     TreatmentRoomId = 1,
                     appointmentStart = DateTime.Today.AddDays(10),
-                    appointmenEnd = DateTime.Today.AddDays(20),
+                    appointmentEnd = DateTime.Today.AddDays(20),
                     IsActive = true
                 }
             };

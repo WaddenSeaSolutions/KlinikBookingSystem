@@ -38,9 +38,9 @@ namespace KlinikBooking.Infrastructure
             DateTime date = DateTime.Today.AddDays(4);
             List<Booking> bookings = new List<Booking>
             {
-                new Booking { appointmentStart = date, appointmenEnd = date.AddDays(14), IsActive = true, PatientId = 1, TreatmentRoomId = 1 },
-                new Booking { appointmentStart = date, appointmenEnd = date.AddDays(14), IsActive = true, PatientId = 2, TreatmentRoomId = 2 },
-                new Booking { appointmentStart = date, appointmenEnd = date.AddDays(14), IsActive = true, PatientId = 1, TreatmentRoomId = 3 }
+                new Booking { appointmentStart = date, appointmentEnd = date.AddDays(14), IsActive = true, PatientId = 1, TreatmentRoomId = 1 },
+                new Booking { appointmentStart = date, appointmentEnd = date.AddDays(14), IsActive = true, PatientId = 2, TreatmentRoomId = 2 },
+                new Booking { appointmentStart = date, appointmentEnd = date.AddDays(14), IsActive = true, PatientId = 1, TreatmentRoomId = 3 }
             };
 
             context.Patient.AddRange(patients);

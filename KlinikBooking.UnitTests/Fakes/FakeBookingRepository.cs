@@ -41,7 +41,7 @@ public class FakeBookingRepository : IRepository<Booking>
         {
             Id = 1,
             appointmentStart = fullyOccupiedStartDate,
-            appointmenEnd = fullyOccupiedEndDate,
+            appointmentEnd = fullyOccupiedEndDate,
             IsActive = true,
             PatientId = 1,
             TreatmentRoomId = 1
@@ -58,7 +58,7 @@ public class FakeBookingRepository : IRepository<Booking>
             {
                 Id = 1,
                 appointmentStart = DateTime.Today.AddDays(1),
-                appointmenEnd = DateTime.Today.AddDays(1),
+                appointmentEnd = DateTime.Today.AddDays(1),
                 IsActive = true,
                 PatientId = 1,
                 TreatmentRoomId = 1
@@ -67,7 +67,7 @@ public class FakeBookingRepository : IRepository<Booking>
             {
                 Id = 1,
                 appointmentStart = fullyOccupiedStartDate,
-                appointmenEnd = fullyOccupiedEndDate,
+                appointmentEnd = fullyOccupiedEndDate,
                 IsActive = true,
                 PatientId = 1,
                 TreatmentRoomId = 1
@@ -76,7 +76,7 @@ public class FakeBookingRepository : IRepository<Booking>
             {
                 Id = 2,
                 appointmentStart = fullyOccupiedStartDate,
-                appointmenEnd = fullyOccupiedEndDate,
+                appointmentEnd = fullyOccupiedEndDate,
                 IsActive = true,
                 PatientId = 2,
                 TreatmentRoomId = 2

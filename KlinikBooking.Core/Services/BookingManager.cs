@@ -17,7 +17,7 @@ namespace KlinikBooking.Core
 
         public async Task<bool> CreateBooking(Booking booking)
         {
-            int roomId = await FindAvailableTreatmentRoom(booking.appointmentStart, booking.appointmenEnd);
+            int roomId = await FindAvailableTreatmentRoom(booking.appointmentStart, booking.appointmentEnd);
 
             if (roomId >= 0)
             {
@@ -53,7 +53,7 @@ namespace KlinikBooking.Core
 
                 bool isOccupied = activeBookings.Any(b =>
                     b.TreatmentRoomId == room.Id &&
-                    appointmentStart < b.appointmenEnd &&
+                    appointmentStart < b.appointmentEnd &&
                     appointmentEnd > b.appointmentStart);
 
                 if (!isOccupied)
@@ -81,7 +81,7 @@ namespace KlinikBooking.Core
                 var slotEnd = slot.AddHours(1);
 
                 var activeBookingsInSlot = bookings.Count(b =>
-                    b.appointmentStart < slotEnd && b.appointmenEnd > slot);
+                    b.appointmentStart < slotEnd && b.appointmentEnd > slot);
 
                 if (activeBookingsInSlot >= noOfTreatmentRooms)
                 {
