@@ -261,10 +261,11 @@ public class BookingManagerTests
         string scenario)
     {
         // Arrange
+        var start = DateTime.Today.AddDays(startDaysFromToday).AddHours(9);
         var booking = new Booking
         {
-            appointmentStart = DateTime.Today.AddDays(startDaysFromToday),
-            appointmentEnd = DateTime.Today.AddDays(endDaysFromToday)
+            appointmentStart = start,
+            appointmentEnd = start.AddHours(1)
         };
 
         var treatmentRooms = new List<TreatmentRoom>
