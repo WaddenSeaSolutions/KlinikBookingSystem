@@ -117,10 +117,11 @@ public class BookingManagerTests
         bool expectedResult)
     {
         // Arrange
+        var start = DateTime.Today.AddDays(startDaysFromToday).AddHours(9);
         var booking = new Booking
         {
-            appointmentStart = DateTime.Today.AddDays(startDaysFromToday),
-            appointmentEnd = DateTime.Today.AddDays(endDaysFromToday)
+            appointmentStart = start,
+            appointmentEnd = start.AddHours(1)
         };
 
         var availableTreatmentRooms = new List<TreatmentRoom>
@@ -162,10 +163,11 @@ public class BookingManagerTests
         bool expectedResult)
     {
         // Arrange
+        var start = DateTime.Today.AddDays(startDaysFromToday).AddHours(9);
         var booking = new Booking
         {
-            appointmentStart = DateTime.Today.AddDays(startDaysFromToday),
-            appointmentEnd = DateTime.Today.AddDays(endDaysFromToday)
+            appointmentStart = start,
+            appointmentEnd = start.AddHours(1)
         };
 
         var treatmentRooms = new List<TreatmentRoom>
@@ -206,10 +208,12 @@ public class BookingManagerTests
     public async Task CreateBooking_NoTreatmentRoomAvailable_DoesNotModifyBookingProperties()
     {
         // Arrange
+        var start = DateTime.Today.AddDays(15).AddHours(9);
+        var end = start.AddHours(1);
         var booking = new Booking
         {
-            appointmentStart = DateTime.Today.AddDays(15),
-            appointmentEnd = DateTime.Today.AddDays(16),
+            appointmentStart = start,
+            appointmentEnd = end,
             TreatmentRoomId = 999,
             IsActive = true
         };

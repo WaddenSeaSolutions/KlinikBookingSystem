@@ -74,6 +74,12 @@ namespace KlinikBooking.Core
 
             var rooms = await treatmentRoomRepository.GetAllAsync();
             int noOfTreatmentRooms = rooms.Count();
+
+            if (noOfTreatmentRooms == 0) 
+            {
+                return new List<DateTime>();
+            }
+
             var bookings = (await bookingRepository.GetAllAsync()).Where(b => b.IsActive).ToList();
 
             for (DateTime slot = apointmentStart; slot < apointmentEnd; slot = slot.AddHours(1))
