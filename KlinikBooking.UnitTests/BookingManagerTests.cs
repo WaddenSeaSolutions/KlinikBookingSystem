@@ -73,7 +73,8 @@ public class BookingManagerTests
     public async Task FindAvailableTreatmentRoom_NoTreatmentRoomsAvailable_ReturnsMinusOne()
     {
         // Arrange
-        DateTime date = DateTime.Today.AddDays(1);
+        DateTime start = DateTime.Today.AddDays(1).AddHours(9);
+        DateTime end = start.AddHours(1);
 
         var treatmentRooms = new List<TreatmentRoom>
         {
@@ -86,8 +87,8 @@ public class BookingManagerTests
             {
                 Id = 1,
                 TreatmentRoomId = 1,
-                appointmentStart = date,
-                appointmentEnd = date,
+                appointmentStart = start,
+                appointmentEnd = end,
                 IsActive = true
             }
         };
@@ -100,7 +101,7 @@ public class BookingManagerTests
 
         // Act
         int treatmentRoomId =
-            await _bookingManager.FindAvailableTreatmentRoom(date, date);
+            await _bookingManager.FindAvailableTreatmentRoom(start, end);
 
         // Assert
         Assert.Equal(-1, treatmentRoomId);
