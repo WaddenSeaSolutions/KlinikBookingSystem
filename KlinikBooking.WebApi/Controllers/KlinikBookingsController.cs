@@ -49,18 +49,25 @@ namespace KlinikBooking.WebApi.Controllers
         {
             if (booking == null)
             {
-                return BadRequest();
+                return BadRequest("Booking body cannot be null.");
             }
 
-            bool created = await bookingManager.CreateBooking(booking);
+            try
+            {
+                bool created = await bookingManager.CreateBooking(booking);
 
-            if (created)
-            {
-                return Created(string.Empty, booking);
+                if (created)
+                {
+                    return Created(string.Empty, booking);
+                }
+                else
+                {
+                    return Conflict("The booking could not be created. All rooms are occupied.");
+                }
             }
-            else
+            catch (ArgumentException ex)
             {
-                return Conflict("The booking could not be created. All rooms are occupied. Please try another period.");
+                return BadRequest(ex.Message);
             }
         }
 
